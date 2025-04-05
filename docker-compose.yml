@@ -29,10 +29,12 @@ services:
             - traefik.http.routers.http-catchall.entrypoints=web
             - traefik.http.routers.http-catchall.priority=999
         volumes:
-          - /var/run/docker.sock:/var/run/docker.sock:ro
-          - .traefik/config/traefik-${PROJECT_ENV:-production}.yml:/etc/traefik/traefik.yml:ro
-          - .traefik/config/providers.yml:/etc/traefik/providers.yml:ro
-          - .traefik/certs:/certs
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - .traefik/config/traefik.yml:/etc/traefik/traefik.yml:ro
+            - .traefik/config/providers.yml:/etc/traefik/providers.yml:ro
+            - .traefik/certs:/certs
+        command:
+            - --configFile=/etc/traefik/traefik.yml
 
 networks:
     ${PROJECT_NETWORK:-traefik}:
